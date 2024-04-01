@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.campus.spring.youropinion.domain.excepciones.BodyBadRequestException;
 import com.campus.spring.youropinion.domain.repositories.ContentRepository;
 import com.campus.spring.youropinion.domain.repositories.GenderRepository;
 import com.campus.spring.youropinion.domain.repositories.PlatformRepository;
@@ -43,32 +44,36 @@ public class ContentServiceImpl implements ContentService{
     @Override
     public ResponseEntity<Object> saveContent(ContentDTO cDto) {
         
-        if(cDto.getStatusContent().equalsIgnoreCase("Terminado") || cDto.getStatusContent().equalsIgnoreCase("Abandonado")){
-            ContentEntity contentEntity = new ContentEntity();
-            contentEntity.setId(cDto.getId());
-            contentEntity.setNameContent(cDto.getNameContent());
-            contentEntity.setProfile(profileRepository.findById(cDto.getIdProfile() | 0).orElse(null));
-            contentEntity.setGender(genderRepository.findById(cDto.getIdGender() | 0).orElse(null));
-            contentEntity.setPlatform(platformRepository.findById(cDto.getIdPlatform() | 0).orElse(null));
-            contentEntity.setType(typeContentRepository.findById(cDto.getIdType() | 0).get());
-            contentEntity.setQualification(cDto.getQualification());
-            contentEntity.setComment(cDto.getComment());
-            contentEntity.setStatusContent(cDto.getStatusContent());
-
-            return ResponseEntity.ok().body(contentRepository.save(contentEntity));
-        }else{
-            ContentEntity contentEntity = new ContentEntity();
-            contentEntity.setId(cDto.getId());
-            contentEntity.setNameContent(cDto.getNameContent());
-            contentEntity.setProfile(profileRepository.findById(cDto.getIdProfile() | 0).orElse(null));
-            contentEntity.setGender(genderRepository.findById(cDto.getIdGender() | 0).orElse(null));
-            contentEntity.setPlatform(platformRepository.findById(cDto.getIdPlatform() | 0).orElse(null));
-            contentEntity.setType(typeContentRepository.findById(cDto.getIdType() | 0).get());
-            contentEntity.setStatusContent(cDto.getStatusContent());
-
-            return ResponseEntity.ok().body(contentRepository.save(contentEntity));
+        try {
+            if(cDto.getStatusContent().equalsIgnoreCase("Terminado") || cDto.getStatusContent().equalsIgnoreCase("Abandonado")){
+                ContentEntity contentEntity = new ContentEntity();
+                contentEntity.setId(cDto.getId());
+                contentEntity.setNameContent(cDto.getNameContent());
+                contentEntity.setProfile(profileRepository.findById(cDto.getIdProfile() | 0).orElse(null));
+                contentEntity.setGender(genderRepository.findById(cDto.getIdGender() | 0).orElse(null));
+                contentEntity.setPlatform(platformRepository.findById(cDto.getIdPlatform() | 0).orElse(null));
+                contentEntity.setType(typeContentRepository.findById(cDto.getIdType() | 0).get());
+                contentEntity.setQualification(cDto.getQualification());
+                contentEntity.setComment(cDto.getComment());
+                contentEntity.setStatusContent(cDto.getStatusContent());
+    
+                return ResponseEntity.ok().body(contentRepository.save(contentEntity));
+            }else{
+                ContentEntity contentEntity = new ContentEntity();
+                contentEntity.setId(cDto.getId());
+                contentEntity.setNameContent(cDto.getNameContent());
+                contentEntity.setProfile(profileRepository.findById(cDto.getIdProfile() | 0).orElse(null));
+                contentEntity.setGender(genderRepository.findById(cDto.getIdGender() | 0).orElse(null));
+                contentEntity.setPlatform(platformRepository.findById(cDto.getIdPlatform() | 0).orElse(null));
+                contentEntity.setType(typeContentRepository.findById(cDto.getIdType() | 0).get());
+                contentEntity.setStatusContent(cDto.getStatusContent());
+    
+                return ResponseEntity.ok().body(contentRepository.save(contentEntity));
+            }
+    
+        } catch (Exception e) {
+            throw new BodyBadRequestException("Incorrect parameters in the body: "+e.getMessage());
         }
-
     }
     
 }
