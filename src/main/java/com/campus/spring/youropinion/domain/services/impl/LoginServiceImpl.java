@@ -85,5 +85,16 @@ public class LoginServiceImpl implements LoginService{
         repsonse.put("is_token_valid", valid);
         return repsonse;
     }
+
+    @Override
+    public UserEntity getUserWToken(String token) {
+        Boolean isJWTValid = jwtAuthorizationFilter.isJWTValid(token);
+        if (isJWTValid) {
+            String email = jwtAuthorizationFilter.getClaims(token).getSubject();
+            UserEntity userEntity = userRepository.findByEmailUser(email);
+            return userEntity;
+        }
+        return null;
+    }
     
 }
