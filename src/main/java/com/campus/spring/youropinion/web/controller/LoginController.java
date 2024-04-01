@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@RestController
+@RestController 
 @SecurityRequirement(name = "bearerAuth")
 public class LoginController {
     
