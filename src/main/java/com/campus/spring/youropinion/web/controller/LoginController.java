@@ -2,6 +2,7 @@ package com.campus.spring.youropinion.web.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.campus.spring.youropinion.domain.excepciones.UserNotFoundException;
 import com.campus.spring.youropinion.domain.services.LoginService;
 import com.campus.spring.youropinion.persistence.dto.UserDto;
 
@@ -30,7 +31,7 @@ public class LoginController {
             @RequestParam("password") String password){
         UserDto userDTO = loginService.loginUser(email, password);
         if (userDTO == null) {
-            throw new UsernameNotFoundException("This user: "+email+" Does not exist");
+            throw new UserNotFoundException("This user: "+email+" Does not exist");
         }
         return ResponseEntity.ok().body(userDTO);
     }
@@ -41,7 +42,7 @@ public class LoginController {
             @RequestParam("password") String password) {
         UserDto userDTO = loginService.registerUser(username, password);
         if(userDTO == null){
-            throw new UsernameNotFoundException("No se creo");
+            throw new UserNotFoundException("User not created");
         }
         return ResponseEntity.ok().body(userDTO);
     }
