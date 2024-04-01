@@ -106,6 +106,9 @@ spring.datasource.password=<password>
 <p>
 <em>2024-04-01</em>
 </p>
+
+![](./img/model_image.png)
+
 <p class="proj-desc">
 <em></em>
 </p>
