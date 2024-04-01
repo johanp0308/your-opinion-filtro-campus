@@ -21,6 +21,13 @@ public class GloblalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleBodyBadRequestException(BodyBadRequestException ex){
         ErrorResponse errorResponse = new ErrorResponse("User not Found", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotExitsObjectDB.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<Object> handleNotExitsObjectDB(NotExitsObjectDB ex){
+        ErrorResponse errorResponse = new ErrorResponse("User not Found", ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
