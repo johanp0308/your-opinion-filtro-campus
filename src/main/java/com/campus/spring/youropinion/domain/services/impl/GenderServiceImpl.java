@@ -3,10 +3,14 @@ package com.campus.spring.youropinion.domain.services.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import com.campus.spring.youropinion.domain.excepciones.BodyBadRequestException;
+import com.campus.spring.youropinion.domain.excepciones.NotExitsObjectDB;
 import com.campus.spring.youropinion.domain.excepciones.UserNotFoundException;
 import com.campus.spring.youropinion.domain.repositories.GenderRepository;
+import com.campus.spring.youropinion.domain.repositories.ProfileRepository;
 import com.campus.spring.youropinion.domain.services.GenderService;
 import com.campus.spring.youropinion.persistence.dto.GenderDTO;
 import com.campus.spring.youropinion.persistence.entities.GenderEntity;
@@ -16,9 +20,13 @@ import com.campus.spring.youropinion.persistence.entities.GenderEntity;
 public class GenderServiceImpl implements GenderService{
 
     private final GenderRepository genderRepository;
+    private final ProfileRepository profileRepository;
     
-    public GenderServiceImpl(GenderRepository gebGenderRepository){
+    public GenderServiceImpl(
+            GenderRepository gebGenderRepository,
+            ProfileRepository profileRepository){
         this.genderRepository = gebGenderRepository;
+        this.profileRepository = profileRepository;
     }
 
     @Override
@@ -36,12 +44,16 @@ public class GenderServiceImpl implements GenderService{
     public GenderDTO saveGender(GenderDTO dto) {
         try {
             
-            GenderEntity goEntity = genderRepository.findById(dto.getId()).orElse(null);
-        } catch (Exception e) {
-            throw new Not
-        }
-        if(goEntity == null){
+            GenderEntity genderEntity = new GenderEntity();
+            genderEntity.setNameGender(dto.getNameGender());
+            genderEntity.setProfile(profileRepository.findById(dto.getIdprofile()).orElse(null));
 
+            GenderEntity response = genderRepository.save(genderEntity);
+            GenderDTO responseDt = GenderDTO.toGenderDTO(response);
+            return responseDt;
+            
+        } catch (Exception e) {
+            throw new BodyBadRequestException("Incorrect parameters in the body: "+e.getMessage());
         }
     } 
     

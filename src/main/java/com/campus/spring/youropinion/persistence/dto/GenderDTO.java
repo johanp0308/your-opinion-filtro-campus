@@ -60,7 +60,7 @@ public class GenderDTO {
         return this;
     }
 
-    public GenderDTO toGenderDTO(GenderEntity genderEntity){
+    public static GenderDTO toGenderDTO(GenderEntity genderEntity){
         GenderDTO dto = new GenderDTO();
         dto.setId(genderEntity.getId());
         dto.setIdprofile(genderEntity.getProfile().getId());
