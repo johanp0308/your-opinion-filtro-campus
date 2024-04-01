@@ -37,7 +37,7 @@ public class LoginController {
     
     @PostMapping("registerUser")
     public ResponseEntity<?> registerUser(
-            @RequestParam("username") String username,
+            @RequestParam("email") String username,
             @RequestParam("password") String password) {
         UserDto userDTO = loginService.registerUser(username, password);
         if(userDTO == null){

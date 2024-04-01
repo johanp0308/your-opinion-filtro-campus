@@ -15,7 +15,8 @@ class Constans {
     protected static final String[] USER_SIGNIN = {
         "/login",
         "/registerUser",
-        "/api/v1"
+        "/api/v1",
+        "validateToken"
     };
 
     protected static final String[] SWAGGER_DOCS = {
