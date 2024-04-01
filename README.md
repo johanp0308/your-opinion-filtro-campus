@@ -49,57 +49,6 @@ spring.datasource.password=<password>
 
 ## Database Documentation
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <meta name="author" content="WB DataDic" />
-    <meta name="description" content="db_youropinion Data Dictionary." />
-    <title>db_youropinion Data Dictionary</title>
-    <style type="text/css">
-    table{
-        width: 100%;
-        margin-bottom: 30px;
-    }
-    abbr{
-        cursor: help;
-    }
-    table, td, th{
-        border-style: solid;
-        border-width: 1px;
-    }
-    table caption{
-        font-size: 120%;
-        font-weight: bold;
-    }
-    caption{
-        color: black;
-    }
-    td, th{
-        border-color: silver;
-    }
-    tr:hover{
-        color: #333;
-        background-color: #F2F2F2;
-    }
-    th{
-        background-color: silver;
-    }
-    td{
-        color: gray;
-    }
-    ul{
-        font-style: italic;
-    }
-    #title-sect{
-        color: gray;
-        text-align: right;
-    }
-    .proj-desc{
-        text-align: right;
-    }
-    </style>
-</head>
 <body>
 <div id="title-sect">
 <h1>db_youropinion<br> Data Dictionay</h1>
