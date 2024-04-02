@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.campus.spring.youropinion.domain.services.GenderService;
+import com.campus.spring.youropinion.persistence.dto.GenderDTO;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
@@ -32,9 +33,8 @@ public class GenderController {
     }
 
     @PostMapping("/")
-    public String postMethodName(@RequestBody String entity) {
-        
-        return entity;
+    public ResponseEntity<Object> saveGender(@RequestBody GenderDTO entity) {
+        return ResponseEntity.ok().body(genderService.saveGender(entity));
     }
     
     
